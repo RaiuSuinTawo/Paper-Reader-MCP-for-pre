@@ -1,0 +1,9 @@
+# npm 打包白名单已在 package.json 的 "files" 里显式声明,这里再兜底排除运行时产物,
+# 防止本地遗留的缓存/论文/字节码被打进 tarball。
+__pycache__/
+*.pyc
+.cache/
+papers/
+pre/
+*.log
+.DS_Store
