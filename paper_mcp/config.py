@@ -1,7 +1,7 @@
 """配置与路径解析:集中管理环境变量、目录约定与安全路径处理。
 
 环境变量:
-- CLAUDE_PROJECT_DIR : 项目根(papers/ 与输出目录的根),默认当前工作目录
+- PAPERS_PROJECT_ROOT : 项目根(papers/ 与输出目录的根),默认当前工作目录
 - MINERU_API_TOKEN   : MinerU 云端 API Token(必填,见 https://mineru.net)
 - MINERU_API_BASE    : API 基地址,默认 https://mineru.net/api/v4
 - MINERU_MODEL_VERSION / MINERU_POLL_INTERVAL / MINERU_MAX_WAIT / MINERU_HTTP_TIMEOUT : 可选调优
@@ -13,7 +13,7 @@ def _abs(p: str) -> str:
     return os.path.abspath(os.path.expanduser(p))
 
 
-BASE_DIR = _abs(os.environ.get("CLAUDE_PROJECT_DIR") or os.getcwd())
+BASE_DIR = _abs(os.environ.get("PAPERS_PROJECT_ROOT") or os.getcwd())
 PAPERS_DIR = os.path.join(BASE_DIR, "papers")
 CACHE_DIR = os.path.join(BASE_DIR, ".cache", "mineru")
 

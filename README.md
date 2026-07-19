@@ -38,7 +38,7 @@ pip install -r requirements.txt   # mcp + httpx
 | 变量 | 必填 | 说明 |
 | --- | --- | --- |
 | `MINERU_API_TOKEN` | ✅ | MinerU 云端 API Token（在 <https://mineru.net> 申请） |
-| `CLAUDE_PROJECT_DIR` | | 项目根（`papers/`、`.cache/`、输出目录的根），默认当前工作目录 |
+| `PAPERS_PROJECT_ROOT` | | 项目根（`papers/`、`.cache/`、输出目录的根），默认当前工作目录 |
 | `MINERU_API_BASE` | | 默认 `https://mineru.net/api/v4` |
 | `MINERU_MODEL_VERSION` | | 解析模型，默认 `vlm`（亦可 `pipeline`） |
 | `MINERU_POLL_INTERVAL` | | 阻塞等待的轮询周期，默认 `30`（秒） |
@@ -81,7 +81,7 @@ MINERU_API_TOKEN=xxxx python paper-mcp.py
       "command": "npx",
       "args": ["-y", "paper-mcp"],
       "env": {
-        "CLAUDE_PROJECT_DIR": "Your-Work-Space",
+        "PAPERS_PROJECT_ROOT": "Your-Work-Space",
         "MINERU_API_TOKEN": "your-mineru-token"
       }
     }
@@ -98,7 +98,7 @@ MINERU_API_TOKEN=xxxx python paper-mcp.py
       "command": "python",
       "args": ["paper-mcp.py"],
       "env": {
-        "CLAUDE_PROJECT_DIR": "Your-Work-Space",
+        "PAPERS_PROJECT_ROOT": "Your-Work-Space",
         "MINERU_API_TOKEN": "your-mineru-token"
       }
     }
@@ -217,7 +217,7 @@ sequenceDiagram
 - **缓存幂等 + 可续等**：结果按**文件 sha256** 缓存，PDF 不变则永不重复烧额度；上次未完成的论文（在途批次）再次调用 `parse_papers` 会**续等原批次而非重新上传**，所以超时后直接再调一次即可继续等，不会重复解析。
 - **两段式图表理解**：先 `list_figures`/`get_figure` 拿清单和图注（便宜），模型判断哪些关键，再对关键图调 `view_image` 真正看图（按需付 token）。表格同理经 `get_table`。
 - **token 友好**：`read_paper` 按章节/页范围分段读并有 `max_chars` 上限；图/表在正文中以占位符出现，不 inline 大块内容。
-- **写操作沙箱**：`write_file` / `collect_figures` 一律夹在 `CLAUDE_PROJECT_DIR` 内，拒绝越界写；`view_image` 只读缓存/项目目录内的图片。
+- **写操作沙箱**：`write_file` / `collect_figures` 一律夹在 `PAPERS_PROJECT_ROOT` 内，拒绝越界写；`view_image` 只读缓存/项目目录内的图片。
 
 ---
 
