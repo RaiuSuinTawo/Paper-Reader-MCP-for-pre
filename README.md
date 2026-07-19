@@ -60,7 +60,7 @@ pip install -r requirements.txt   # mcp + httpx
 mkdir -p papers && cp /path/to/*.pdf papers/
 
 # 直接运行(stdio,通常由 MCP 客户端拉起)
-MINERU_API_TOKEN=xxxx npx paper-mcp
+MINERU_API_TOKEN=xxxx npx @femio/paper-mcp
 ```
 
 ### 方式二:从源码运行
@@ -79,7 +79,7 @@ MINERU_API_TOKEN=xxxx python paper-mcp.py
   "mcpServers": {
     "paper-reader": {
       "command": "npx",
-      "args": ["-y", "paper-mcp"],
+      "args": ["-y", "@femio/paper-mcp"],
       "env": {
         "PAPERS_PROJECT_ROOT": "Your-Work-Space",
         "MINERU_API_TOKEN": "your-mineru-token"
@@ -106,7 +106,7 @@ MINERU_API_TOKEN=xxxx python paper-mcp.py
 }
 ```
 
-> ℹ️ npx 版本本质是一个包装器:它把打包进 npm 的 Python 源码用 `uv run --with mcp --with httpx python paper-mcp.py` 拉起。**首次运行**若 uv 需下载 Python/依赖会稍慢,之后走缓存;若客户端有 MCP 启动超时,首次可先手动 `npx paper-mcp` 预热一次。可用 `PAPER_MCP_PYTHON` 指定 Python 版本、`PAPER_MCP_NO_UV=1` 强制走系统 python。
+> ℹ️ npx 版本本质是一个包装器:它把打包进 npm 的 Python 源码用 `uv run --with mcp --with httpx python paper-mcp.py` 拉起。**首次运行**若 uv 需下载 Python/依赖会稍慢,之后走缓存;若客户端有 MCP 启动超时,首次可先手动 `npx @femio/paper-mcp` 预热一次。可用 `PAPER_MCP_PYTHON` 指定 Python 版本、`PAPER_MCP_NO_UV=1` 强制走系统 python。
 
 ---
 

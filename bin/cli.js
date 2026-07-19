@@ -3,7 +3,7 @@
  * paper-mcp 启动包装器。
  *
  * 本包是一个 Python MCP Server(FastMCP + httpx)。这里用 Node 包装,让它能通过
- * `npx paper-mcp` 启动:优先用 uv 拉起(自动准备 Python 与 mcp/httpx 依赖),
+ * `npx @femio/paper-mcp` 启动:优先用 uv 拉起(自动准备 Python 与 mcp/httpx 依赖),
  * 无 uv 时回退到系统 python(需已装 mcp、httpx)。
  *
  * MCP 走 stdio(stdin/stdout 是 JSON-RPC 协议通道),因此这里用 stdio:'inherit'
